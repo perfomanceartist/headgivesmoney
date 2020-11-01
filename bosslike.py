@@ -88,9 +88,12 @@ class Bosslike:
         responce = requests.get(url, headers=headers, params=params)
         if responce.status_code == 200:
             print('ok')
-            print(responce.json()['data']['url'])
+            task = Task()
+            task.id = responce.json()['data']['token']
+            task.url = responce.json()['data']['url']
+            task.action = responce.json()['data']['action']
             print(responce.json()['data']['token'])
-            return responce.json()['data']['token']
+            return task
         else:
             print('error while getting url : ' + str(responce.status_code))
             return None
